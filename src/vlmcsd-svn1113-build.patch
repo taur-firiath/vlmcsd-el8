@@ -1,0 +1,27 @@
+--- vlmcsd-svn1111-orig/GNUmakefile	2017-06-22 10:21:58.000000000 +0300
++++ vlmcsd-svn1111/GNUmakefile	2018-09-10 13:54:44.390661624 +0300
+@@ -129,6 +129,24 @@
+ pdfdocs:
+ 	+@$(MAKE) -j$(MAX_THREADS) -C man $@
+ 
++install:
++	mkdir -p $(DESTDIR)/usr/bin
++	cp bin/* $(DESTDIR)/usr/bin
++	mkdir -p $(DESTDIR)/etc/vlmcsd
++	cp etc/* $(DESTDIR)/etc/vlmcsd
++	mkdir man/unix
++	mv man/*.unix.txt man/unix
++	rename .unix.txt '' man/unix/*
++	gzip -r man/unix
++	mkdir -p $(DESTDIR)/usr/share/man/man1
++	cp man/unix/vlmcs.1.gz $(DESTDIR)/usr/share/man/man1/
++	mkdir -p $(DESTDIR)/usr/share/man/man7
++	cp man/unix/vlmcsd.7.gz $(DESTDIR)/usr/share/man/man7/
++	mkdir -p $(DESTDIR)/usr/share/man/man8
++	cp man/unix/vlmcsd.8.gz $(DESTDIR)/usr/share/man/man8/
++	mkdir -p $(DESTDIR)/usr/share/man/man5
++	cp man/unix/vlmcsd.ini.5.gz $(DESTDIR)/usr/share/man/man5/
++
+ GNUmakefile:
+ 
+ help:
